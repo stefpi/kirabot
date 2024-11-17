@@ -3,4 +3,4 @@ kira discord bot running on infera network
 tasks
 - [ ] look at RAG to include other infera related context
   - [ ] + use vector database so that I don't have to feed all of the messages in a chat as context
-- [ ] run two bots that talk to each other
+- [x] run two bots that talk to each other

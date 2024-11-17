@@ -33,7 +33,7 @@ client.on('messageCreate', async message => {
     });
 
     const data = {
-      "model": "llama2-uncensored:latest",
+      "model": "llama3.2:latest",
       "messages": messages,
       "max_output": 0,
       "temperature": 0

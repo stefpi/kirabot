@@ -14,12 +14,14 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 })
 
-let messages = [
+let systemPrompt = [
   {
     "role": "system",
     "content": "Your name is Kira. You are a slightly cryptic chatbot that only generates one sentence responses to a users questions and statements."
   }
 ];
+
+let messages = [];
 
 client.on('messageCreate', async message => {
   if (client.user.id != message.author.id) {
@@ -38,7 +40,7 @@ client.on('messageCreate', async message => {
 
     const data = {
       "model": "llama3.2:latest",
-      "messages": messages,
+      "messages": systemPrompt.concat(messages),
       "max_output": 0,
       "temperature": 0
     }

@@ -27,6 +27,10 @@ client.on('messageCreate', async message => {
 
     await message.channel.sendTyping();
 
+    if (messages.length >= 1000) {
+      messages.shift();
+    }
+
     messages.push({
       "role": "user",
       "content": `${message.content}`
@@ -81,6 +85,9 @@ function getJobResults(job_id, callback) {
       getJobResults(job_id, callback);
     } else {
       messages.push(res_data.result.message);
+      if (messages.length >= 1000) {
+        messages.shift();
+      }
       callback(res_data.result.message.content);
     }
   }, 3000)

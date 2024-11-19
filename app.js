@@ -57,19 +57,21 @@ client.on('messageCreate', async message => {
 
     const res = await fetch("https://api.infera.org/submit_job", payload);
     const res_data = await res.json();
-
-    console.log(messages)
     
-    const job_id = res_data.job_id;
-    console.log("infera job id: ", job_id);
+    if (res_data.status == "success") {
+      const job_id = res_data.job_id;
+      console.log("infera job id: ", job_id);
 
-    getJobResults(job_id, async (data) => {
-      await message.channel.send(`${data}`);
-    });
+      getJobResults(job_id, message, async (data) => {
+        await message.reply(`${data}`);
+      });
+    } else {
+      await message.reply(`sorry your message did not compute, please try again.`);
+    }
   }
 })
 
-function getJobResults(job_id, callback) {
+function getJobResults(job_id, message, callback) {
   setTimeout(async function() {
     const payload = {
       method: "GET",
@@ -83,8 +85,9 @@ function getJobResults(job_id, callback) {
 
     console.log("status: ", res_data.status);
 
-    if (res.status == 404) {
-      getJobResults(job_id, callback);
+    if (res.status == 404 || res.status == undefined) {
+      message.channel.sendTyping();
+      getJobResults(job_id, message,  callback);
     } else {
       messages.push(res_data.result.message);
       if (messages.length >= 1000) {

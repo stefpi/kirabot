@@ -17,5 +17,7 @@ module.exports = {
     const response = await infera.get(messages);
 
     channel.send(response);
+
+    await interaction.reply("check your DMs!", { ephemeral: true })
 	},
 };

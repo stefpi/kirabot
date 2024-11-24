@@ -27,8 +27,7 @@ let systemPrompt = [
  *    "content": "____"
  * }]
  */
-async function get(messages) {
-  console.log(systemPrompt.concat(messages))
+async function get(messages, channel) {
 
   const data = {
     "model": "llama3.2:latest",
@@ -54,14 +53,14 @@ async function get(messages) {
     const job_id = res_data.job_id;
     console.log("infera job id: ", job_id);
 
-    return await getJobResults(job_id, messages);
+    return await getJobResults(job_id, messages, channel);
   } else {
     console.log(res_data);
     return "sorry your message did not compute, please try again.";
   }
 }
 
-async function getJobResults(job_id, messages) {
+async function getJobResults(job_id, messages, channel) {
   const MAX_RETRIES = 50;
   const RETRY_DELAY = 3000; // in ms
 
@@ -87,6 +86,7 @@ async function getJobResults(job_id, messages) {
       return res_data.result.message.content;
     } 
     
+    channel.sendTyping();
     await new Promise(resolve => setTimeout(resolve, 3000));
   }
 

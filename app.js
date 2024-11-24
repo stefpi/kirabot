@@ -109,10 +109,10 @@ client.on(Events.MessageCreate, async message => {
 
     await message.channel.sendTyping();
 
-    const response = await infera.get(messages);
+    const response = await infera.get(messages, message.channel);
 
     await message.reply(response);
   }
-})
+});
 
 client.login(process.env.BOT_TOKEN);

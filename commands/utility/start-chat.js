@@ -7,6 +7,8 @@ module.exports = {
 		.setName('kira')
 		.setDescription('Start a DM conversation with Kira!'),
 	async execute(interaction) {
+    await interaction.reply({ content: "sending a message to your DMs shortly...", ephemeral: true })
+
     const channel = await interaction.member.user.createDM();
 
     const messages = [{
@@ -17,7 +19,5 @@ module.exports = {
     const response = await infera.get(messages);
 
     channel.send(response);
-
-    await interaction.reply("check your DMs!", { ephemeral: true })
 	},
 };

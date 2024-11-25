@@ -103,7 +103,7 @@ client.on(Events.MessageCreate, async message => {
 
     const messages = historyToContext(messagesMetaData);
 
-    console.log(messages)
+    // console.log(messages)
 
     console.log("message: ", message.content);
 

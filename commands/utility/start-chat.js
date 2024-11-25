@@ -16,7 +16,7 @@ module.exports = {
       "content": "Hello Kira!"
     }];
 
-    const response = await infera.get(messages);
+    const response = await infera.get(messages, channel);
 
     channel.send(response);
 	},

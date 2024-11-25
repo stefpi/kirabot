@@ -99,7 +99,7 @@ client.on(Events.MessageCreate, async message => {
     
     const channel = client.channels.cache.get(message.channelId)
 
-    const messagesMetaData = await channel.messages.fetch({ limit: 100 });
+    const messagesMetaData = await channel.messages.fetch({ limit: 20 });
 
     const messages = historyToContext(messagesMetaData);
 

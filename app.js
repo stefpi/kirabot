@@ -65,27 +65,47 @@ client.on(Events.InteractionCreate, async interaction => {
 })
 /* Command Handler */
 
-function historyToContext(history) {
-  history.sort((a,b) => {
+function historyToContext(historyCollection) {
+  historyCollection.sort((a,b) => {
     return a.createdTimestamp - b.createdTimestamp;
   });
 
+  // mash together multiple sequential "user" and "assistant" messages
+  // TODO: be smarter and sort the whole history to be user, assistant, user, ...
+
+  const history = Array.from(historyCollection.values());
+
   const context = [];
 
-  history.each((msg) => {
-    let role = "";
+  let content = "";
 
-    if (msg.author.id == client.user.id) {
+  for (let i=0; i < history.length; i++) {
+    const currMsg = history[i];
+
+    if (currMsg.author.id == client.user.id) {
       role = "assistant";
     } else {
       role = "user";
     }
 
-    context.push({
-      "role": role,
-      "content": msg.content,
-    });
-  });
+    content += "\n" + currMsg.content;
+
+    if ((i+1) < history.length) {
+      const nextMsg = history[i+1];
+      if (nextMsg.author.id != currMsg.author.id) {
+        context.push({
+          "role": role,
+          "content": content,
+        });
+        content = "";
+      }
+    } else {
+      context.push({
+        "role": role,
+        "content": content,
+      });
+    }
+  }
 
   return context;
 }
@@ -99,11 +119,9 @@ client.on(Events.MessageCreate, async message => {
     
     const channel = client.channels.cache.get(message.channelId)
 
-    const messagesMetaData = await channel.messages.fetch({ limit: 20 });
+    const messagesMetaData = await channel.messages.fetch({ limit: 50 });
 
     const messages = historyToContext(messagesMetaData);
-
-    // console.log(messages)
 
     console.log("message: ", message.content);
 

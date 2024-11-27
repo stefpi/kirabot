@@ -29,7 +29,7 @@ let systemPrompt = [
  */
 async function get(messages, channel) {
 
-  console.log(systemPrompt.concat(messages));
+  console.log(messages);
 
   const data = {
     "model": "llama3.2:latest",

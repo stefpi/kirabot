@@ -28,9 +28,12 @@ let systemPrompt = [
  * }]
  */
 async function get(messages, channel) {
+<<<<<<< Updated upstream
 
   console.log(messages);
 
+=======
+>>>>>>> Stashed changes
   const data = {
     "model": "llama3.2:latest",
     "messages": systemPrompt.concat(messages),
@@ -90,6 +93,7 @@ async function getJobResults(job_id, channel) {
     await new Promise(resolve => setTimeout(resolve, 3000));
   }
 
+  console.log("max retries exceeded");
   return "sorry your message did not compute, please try again."
 }
 

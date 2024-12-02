@@ -123,6 +123,14 @@ client.on(Events.MessageCreate, async message => {
 
     const messages = historyToContext(messagesMetaData);
 
+<<<<<<< Updated upstream
+=======
+    // console.log(messages)
+
+    console.log('--------------------------')
+
+    console.log("user: ", message.author.displayName);
+>>>>>>> Stashed changes
     console.log("message: ", message.content);
 
     await message.channel.sendTyping();
@@ -130,6 +138,8 @@ client.on(Events.MessageCreate, async message => {
     const response = await infera.get(messages, message.channel);
 
     await message.reply(response);
+
+    console.log('--------------------------')
   }
 });
 

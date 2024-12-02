@@ -28,12 +28,6 @@ let systemPrompt = [
  * }]
  */
 async function get(messages, channel) {
-<<<<<<< Updated upstream
-
-  console.log(messages);
-
-=======
->>>>>>> Stashed changes
   const data = {
     "model": "llama3.2:latest",
     "messages": systemPrompt.concat(messages),

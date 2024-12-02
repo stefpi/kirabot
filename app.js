@@ -123,14 +123,9 @@ client.on(Events.MessageCreate, async message => {
 
     const messages = historyToContext(messagesMetaData);
 
-<<<<<<< Updated upstream
-=======
-    // console.log(messages)
-
     console.log('--------------------------')
 
     console.log("user: ", message.author.displayName);
->>>>>>> Stashed changes
     console.log("message: ", message.content);
 
     await message.channel.sendTyping();
